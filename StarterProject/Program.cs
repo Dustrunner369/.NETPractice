@@ -1,6 +1,9 @@
 ﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 public static class Program
 {
@@ -41,9 +44,42 @@ public static class Program
     {
         try
         {
+            // TODO: Review Notes -- Here is a quick and dirty way to work with responses
+            // TODO:       To make re-useable and marshal what you receive and how it is used, 
+            //              you would create a class defining the objects, the My Api Respones 
+            //              should be in it's own file. You were not able to deserialize to your MyApiResponse
+            //              object because you didn't know the structure.  
+            //              I used postman to make the request and look at the structure of the response
+            //              I didn't want to create the class because I was just looking at the fields so 
+            //              a dynamic object to go through temporary data was faster. If this is a program 
+            //              your going to use a lot create the response object and sub objects, 
+            //              then dserialize to those objects
+            
+            //              Clean Coding habits, naming conventions are not bad,  good job. Check out the block of 
+            //              testing code below for a quick example 
+            //              -- uncomment out the console.writeLines to view the data without going to postman 
+            
+            // TODO:  Test Block - for review 
+            HttpClient client2 = new HttpClient();
+            HttpResponseMessage repo = await client2.GetAsync(apiUrl);
+            string message = await repo.Content.ReadAsStringAsync();
+            var responseObject = JsonConvert.DeserializeObject<dynamic>(message);
+            
+            // Console.WriteLine("Response Object: " + responseObject);
+            Console.WriteLine(responseObject.num_results); 
+            // Console.WriteLine(responseObject.results); 
+            
+            foreach( var book in responseObject.results.books )
+            {
+                Console.WriteLine( "Book Title: " + book.title  );
+            }
+            // TODO: End of code block 
+            
+            
             using (HttpClient client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
+                
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -63,6 +99,11 @@ public static class Program
                 }  
                 else
                 {
+                    // TODO Mathew -- if(!response.isSuccessStatusCode) { console.writeLine...., return (out of method) }  
+                    // TODO: then you have one if, no else block - all the code in the if block above is unreachable unless isSuccessStatusCode,
+                    // TODO:    - then remove one level of nesting and an extra else statement
+                    //              (ifs with/without returns can remove a lot excessive nesting) Everyone over nests their code in the beginning 
+                    
                     Console.WriteLine($"Failed to call API. Status code: {response.StatusCode}");
                 }
             }
