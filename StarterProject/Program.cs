@@ -103,6 +103,7 @@ public static class Program
                     // TODO: then you have one if, no else block - all the code in the if block above is unreachable unless isSuccessStatusCode,
                     // TODO:    - then remove one level of nesting and an extra else statement
                     //              (ifs with/without returns can remove a lot excessive nesting) Everyone over nests their code in the beginning 
+                    //              You did not over nest, this  is still only three levels deep, it can get a lot worse 
                     
                     Console.WriteLine($"Failed to call API. Status code: {response.StatusCode}");
                 }
