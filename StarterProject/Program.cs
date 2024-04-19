@@ -99,6 +99,11 @@ public static class Program
                 }  
                 else
                 {
+                    // TODO Mathew -- if(!response.isSuccessStatusCode) { console.writeLine...., return (out of method) }  
+                    // TODO: then you have one if, no else block - all the code in the if block above is unreachable unless isSuccessStatusCode,
+                    // TODO:    - then remove one level of nesting and an extra else statement
+                    //              (ifs with/without returns can remove a lot excessive nesting) Everyone over nests their code in the beginning 
+                    
                     Console.WriteLine($"Failed to call API. Status code: {response.StatusCode}");
                 }
             }
