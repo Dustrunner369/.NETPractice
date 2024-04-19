@@ -7,6 +7,7 @@ public static class Program
     static void Main(string[] args)
     {
         ProcessApiAsync("https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=uGE5wW9ZHA9FGPtClBiABUICnPNrvt2w").Wait();
+        //Tester Code
         // using var client = new HttpClient(); //Why does this line have "using" in it? What does that mean?
         // client.BaseAddress = new Uri("https://httpbin.org/get");
         // //client.BaseAddress = new Uri("https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=uGE5wW9ZHA9FGPtClBiABUICnPNrvt2w");
@@ -59,7 +60,6 @@ public static class Program
                     
                     // Access properties of the deserialized object
                     Console.WriteLine($"API response received: {data.Message}");
-                    Console.WriteLine();
                 }  
                 else
                 {
