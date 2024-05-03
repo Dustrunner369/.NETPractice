@@ -79,34 +79,34 @@ public static class Program
             using (HttpClient client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
-                
 
-                if (response.IsSuccessStatusCode)
+                if (!response.IsSuccessStatusCode)
                 {
-                    string json = await response.Content.ReadAsStringAsync();
-
-                    // Deserialize JSON response
-                    var options = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true // Ignore case when deserializing
-                    };
-
-                    // Deserialize JSON to a specific class or anonymous object
-                    var data = JsonSerializer.Deserialize<MyApiResponse>(json, options);
-                    
-                    // Access properties of the deserialized object
-                    Console.WriteLine($"API response received: {data.Message}");
-                }  
-                else
-                {
-                    // TODO Mathew -- if(!response.isSuccessStatusCode) { console.writeLine...., return (out of method) }  
-                    // TODO: then you have one if, no else block - all the code in the if block above is unreachable unless isSuccessStatusCode,
-                    // TODO:    - then remove one level of nesting and an extra else statement
-                    //              (ifs with/without returns can remove a lot excessive nesting) Everyone over nests their code in the beginning 
-                    //              You did not over nest, this  is still only three levels deep, it can get a lot worse 
-                    
                     Console.WriteLine($"Failed to call API. Status code: {response.StatusCode}");
-                }
+                    return;
+                }    
+                    
+                string json = await response.Content.ReadAsStringAsync();
+
+                // Deserialize JSON response
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true // Ignore case when deserializing
+                };
+
+                // Deserialize JSON to a specific class or anonymous object
+                var data = JsonSerializer.Deserialize<MyApiResponse>(json, options);
+                
+                // Access properties of the deserialized object
+                Console.WriteLine($"API response received: {data.Message}");
+                  
+                
+                
+                // TODO Mathew -- if(!response.isSuccessStatusCode) { console.writeLine...., return (out of method) }  
+                // TODO: then you have one if, no else block - all the code in the if block above is unreachable unless isSuccessStatusCode,
+                // TODO:    - then remove one level of nesting and an extra else statement
+                //              (ifs with/without returns can remove a lot excessive nesting) Everyone over nests their code in the beginning 
+                //              You did not over nest, this  is still only three levels deep, it can get a lot worse 
             }
         }
         catch (Exception ex)
