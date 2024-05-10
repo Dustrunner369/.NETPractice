@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
+using StarterProject;
 using StarterProject.obj;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
@@ -10,7 +11,7 @@ public static class Program
 {
     static void Main(string[] args)
     {
-        ProcessApiAsync("https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=uGE5wW9ZHA9FGPtClBiABUICnPNrvt2w").Wait();
+        ProcessApiAsync("https://api.nytimes.com/svc/books/v3/lists/current/hardcover-nonfiction.json?api-key=uGE5wW9ZHA9FGPtClBiABUICnPNrvt2w").Wait();
         //Tester Code
         // using var client = new HttpClient(); //Why does this line have "using" in it? What does that mean?
         // client.BaseAddress = new Uri("https://httpbin.org/get");
@@ -68,13 +69,21 @@ public static class Program
             
             var responseObject = JsonConvert.DeserializeObject<dynamic>(message); // What is the <dynamic> part of this line?
             
+            
+            
             //QUESTION
             // what is the difference between JsonConvert.DeserializeObject and JsonSerializer.Deserialize<MyApiResponse>(json, options);
             
             
-            Console.WriteLine("Response Object: " + responseObject);
-            Console.WriteLine(responseObject.num_results); 
-            //Console.WriteLine(responseObject.results); 
+            //Console.WriteLine("Response Object: " + responseObject);
+            //Console.WriteLine(responseObject.num_results); 
+            Console.WriteLine(responseObject.results);
+
+            Type type = responseObject.GetType();
+            Console.WriteLine(type);
+            
+            //BookSearchResult mySearchResult = new BookSearchResult(responseObject.results);
+            
             
             // foreach( var book in responseObject.results.books )
             // {
