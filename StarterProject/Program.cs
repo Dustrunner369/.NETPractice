@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
+using StarterProject.obj;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 public static class Program
@@ -62,17 +63,23 @@ public static class Program
             // TODO:  Test Block - for review 
             HttpClient client2 = new HttpClient();
             HttpResponseMessage repo = await client2.GetAsync(apiUrl);
+            
             string message = await repo.Content.ReadAsStringAsync();
-            var responseObject = JsonConvert.DeserializeObject<dynamic>(message);
             
-            // Console.WriteLine("Response Object: " + responseObject);
+            var responseObject = JsonConvert.DeserializeObject<dynamic>(message); // What is the <dynamic> part of this line?
+            
+            //QUESTION
+            // what is the difference between JsonConvert.DeserializeObject and JsonSerializer.Deserialize<MyApiResponse>(json, options);
+            
+            
+            Console.WriteLine("Response Object: " + responseObject);
             Console.WriteLine(responseObject.num_results); 
-            // Console.WriteLine(responseObject.results); 
+            //Console.WriteLine(responseObject.results); 
             
-            foreach( var book in responseObject.results.books )
-            {
-                Console.WriteLine( "Book Title: " + book.title  );
-            }
+            // foreach( var book in responseObject.results.books )
+            // {
+            //     Console.WriteLine( "Book Title: " + book.title  );
+            // }
             // TODO: End of code block 
             
             
@@ -95,18 +102,10 @@ public static class Program
                 };
 
                 // Deserialize JSON to a specific class or anonymous object
-                var data = JsonSerializer.Deserialize<MyApiResponse>(json, options);
+                var data = JsonSerializer.Deserialize<APIResponse>(json, options);
                 
                 // Access properties of the deserialized object
                 Console.WriteLine($"API response received: {data.Message}");
-                  
-                
-                
-                // TODO Mathew -- if(!response.isSuccessStatusCode) { console.writeLine...., return (out of method) }  
-                // TODO: then you have one if, no else block - all the code in the if block above is unreachable unless isSuccessStatusCode,
-                // TODO:    - then remove one level of nesting and an extra else statement
-                //              (ifs with/without returns can remove a lot excessive nesting) Everyone over nests their code in the beginning 
-                //              You did not over nest, this  is still only three levels deep, it can get a lot worse 
             }
         }
         catch (Exception ex)
@@ -114,8 +113,4 @@ public static class Program
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
     }
-}
-public class MyApiResponse
-{
-    public string Message { get; set; }
 }
