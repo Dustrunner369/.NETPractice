@@ -1,16 +1,24 @@
 using System.Runtime.InteropServices.JavaScript;
-
+using Newtonsoft.Json.Linq;
 namespace StarterProject;
 
 public class BookSearchResult
 {
     public String ListName { get; set; }
-    public List<String> Books { get; set; }
-
-    public BookSearchResult(List<String> books)
+    public List<Book> Books { get; set; }
+    public JObject ResponseData { get; set; }
+    public BookSearchResult(JObject responseData)
     {
-        //this.ListName = listName;
-        this.Books = books;
+        ResponseData = responseData;
+        ListName = (string)ResponseData["list_name"];
+        
+        //Loop through all books and create a list of Book objects
+        Books = new List<Book>();
+        JArray booksArray = (JArray)responseData["books"];
+        foreach (var item in booksArray)
+        {
+            Books.Add(new Book((string)item["title"], (double)item["price"], (string)item["author"], 
+                (string)item["description"], (int)item["rank"],(string)item["amazon_product_url"], (string)item["book_image"]));
+        }
     }
-    
 }

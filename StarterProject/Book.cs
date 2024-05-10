@@ -3,16 +3,35 @@ namespace StarterProject;
 public class Book
 {
     //Member Variables
-    public String Name { get; set; }
+    public String Title { get; set; }
     public double Price { get; set; } 
+    public String Author { get; set; }
+    public String Description { get; set; }
+    public int Rank { get; set; }
     public String AmazonLink { get; set; }
-    public String ImageString { get; set; }
+    public String ImageLink { get; set; }
 
-    public Book(String name, double price, String amazonLink, String imageString)
+    public Book(String title, double price, String author, String description, int rank, String amazonLink, String imageLink)
     {
-        this.Name = name;
-        this.Price = price;
-        this.AmazonLink = amazonLink;
-        this.ImageString = imageString;
+        Title = title;
+        Price = price;
+        Author = author;
+        Description = description;
+        Rank = rank;
+        AmazonLink = amazonLink;
+        ImageLink = imageLink;
     }
+     
+    public String ToString()
+    {
+        string stringToReturn = "";
+        stringToReturn += "Title: " + Title;
+        stringToReturn += "\nPrice: " + Price;
+        stringToReturn += "\nAuthor: " + Author;
+        stringToReturn += "\nDescription: " + Description;
+        stringToReturn += "\nRank: " + Rank;
+        
+        return stringToReturn;
+    }
+    
 }

@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Include="obj\APIResponse.cs" />
+      <None Include="obj\APIResponse.cs" />
     </ItemGroup>
 
     <ItemGroup>
