@@ -1,11 +1,6 @@
-﻿using System.Linq.Expressions;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using StarterProject;
-using JsonSerializer = System.Text.Json.JsonSerializer;
+using StarterProject.Mapper;
 
 public static class Program
 {
@@ -16,45 +11,41 @@ public static class Program
     public static async Task ProcessApiAsync(string apiUrl)
     {
         try
-        {
-            // TODO: Review Notes -- Here is a quick and dirty way to work with responses
-            // TODO:       To make re-useable and marshal what you receive and how it is used, 
-            //              you would create a class defining the objects, the My Api Respones 
-            //              should be in it's own file. You were not able to deserialize to your MyApiResponse
-            //              object because you didn't know the structure.  
-            //              I used postman to make the request and look at the structure of the response
-            //              I didn't want to create the class because I was just looking at the fields so 
-            //              a dynamic object to go through temporary data was faster. If this is a program 
-            //              your going to use a lot create the response object and sub objects, 
-            //              then dserialize to those objects
-
-            //              Clean Coding habits, naming conventions are not bad,  good job. Check out the block of 
-            //              testing code below for a quick example 
-            //              -- uncomment out the console.writeLines to view the data without going to postman 
-
-            // TODO:  Test Block - for review 
+        { 
             HttpClient client2 = new HttpClient();
             HttpResponseMessage repo = await client2.GetAsync(apiUrl);
 
             string message = await repo.Content.ReadAsStringAsync();
-
-            var responseObject = JsonConvert.DeserializeObject<dynamic>(message); // What is the <dynamic> part of this line?
-             
             
-            //QUESTION
-            // what is the difference between JsonConvert.DeserializeObject and JsonSerializer.Deserialize<MyApiResponse>(json, options);
+            // TODO: Mathew Review --- Response To Question 
+            // TODO:    A Dynamic object is similar to a json object or javascript/python/undefined dynamic object
+            // TODO:        you don't have to know the fields ahead of time and create the contracts like a traditional
+            // TODO:        class. In this case we're accepting a unknown type of object non-predefined fields
+            // TODO:        - It's a useful tool when used correctly, but try not to abuse it and develop hard to read 
+            // TODO:          code 
+            var responseObject = JsonConvert.DeserializeObject<dynamic>(message); 
             
+            BookSearchResult searchResult = BookSearchResultMapper.MapFromResponseData(responseObject.results);
             
-            //Create a BookSearchResult object which stores data about the search including a list of books
-            BookSearchResult mySearchResult = new BookSearchResult(responseObject.results);
+            Console.WriteLine($@"
+                    List Name:         {searchResult.ListName}
+                    Display Name:      {searchResult.DisplayName}
+                    Best Seller Date:  {searchResult.BestSellersDate}
+                    Amount of books:   {searchResult.Books.Count}
+                    ----------------------------------------------
+            ");
             
-            foreach (var book in mySearchResult.Books)
+            // can format toString to represent the same way if you don't want to type so much
+            foreach (var book in searchResult.Books)
             {
-                Console.WriteLine(book.ToString());
+                Console.WriteLine($@"
+                    Title:          {book.Title}
+                    Author:         {book.Author}
+                    Price:          {book.Price}
+                    Amazon Link:    {book.AmazonLink}
+                ");
             }
-            
-            
-            //TODO: End of code block 
+
         }
         catch(Exception e)
         {
