@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using StarterProject;
 using StarterProject.Mapper;
+using StarterProject.Views;
 
 public static class BookClient
 {
@@ -27,28 +28,36 @@ public static class BookClient
             
             BookSearchResult searchResult = BookSearchResultMapper.MapFromResponseData(responseObject.results);
             
-            Console.WriteLine($@"
-                    List Name:         {searchResult.ListName}
-                    Display Name:      {searchResult.DisplayName}
-                    Best Seller Date:  {searchResult.BestSellersDate}
-                    Amount of books:   {searchResult.Books.Count}
-                    ----------------------------------------------
-            ");
+            // Console.WriteLine($@"
+            //         List Name:         {searchResult.ListName}
+            //         Display Name:      {searchResult.DisplayName}
+            //         Best Seller Date:  {searchResult.BestSellersDate}
+            //         Amount of books:   {searchResult.Books.Count}
+            //         ----------------------------------------------
+            // ");
             
             // can format toString to represent the same way if you don't want to type so much
-            foreach (var book in searchResult.Books)
-            {
-                Console.WriteLine($@"
-                    Title:          {book.Title}
-                    Author:         {book.Author}
-                    Price:          {book.Price}
-                    Amazon Link:    {book.AmazonLink}
-                ");
-            }
+            // foreach (var book in searchResult.Books)
+            // {
+            //     Console.WriteLine($@"
+            //         Title:          {book.Title}
+            //         Author:         {book.Author}
+            //         Price:          {book.Price}
+            //         Amazon Link:    {book.AmazonLink}
+            //     ");
+            // }
+
+            IView viewInterface = new SingleBookView();
+            viewInterface.Output(searchResult);
+            
+
         }
         catch(Exception e)
         {
             Console.WriteLine(e);
         }
     }
+    
+    
+    
 }
