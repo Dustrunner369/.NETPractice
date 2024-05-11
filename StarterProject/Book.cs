@@ -5,7 +5,7 @@ public class Book
     //Member Variables
     public String Title { get; set; }
     public double Price { get; set; } 
-    public String Author { get; set; }
+    public String Author { get; set; }  
     public String Description { get; set; }
     public int Rank { get; set; }
     public String AmazonLink { get; set; }

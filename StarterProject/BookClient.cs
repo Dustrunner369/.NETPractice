@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using StarterProject;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-public static class Program
+public static class BookClient
 {
     static void Main(string[] args)
     {
