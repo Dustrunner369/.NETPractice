@@ -15,9 +15,9 @@ public class BookSearchResultMapper
         
         // using select to map to different return type
         List<Book> bookList = bookDataList.Select(b => BookMapper.MapToBook(b)).ToList();
-
+        
         DateTime bestSellerDate = DateTime.Parse(data.bestsellers_date.ToString());
-
+        
         // using the default constructor, I can construct the item here using the setters similar to a builder pattern 
         return new BookSearchResult()
         {
@@ -29,6 +29,4 @@ public class BookSearchResultMapper
             Books = bookList
         };
     }
-
-    
 }

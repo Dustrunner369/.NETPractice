@@ -2,8 +2,6 @@ namespace StarterProject.Mapper;
 
 public class BookMapper
 {
-
-
     public static Book MapToBook(dynamic bookData)
     {
         return new Book()

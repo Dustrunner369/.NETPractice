@@ -45,7 +45,6 @@ public static class BookClient
                     Amazon Link:    {book.AmazonLink}
                 ");
             }
-
         }
         catch(Exception e)
         {
