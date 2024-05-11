@@ -53,7 +53,6 @@ public static class BookClient
                 Console.WriteLine(book.ToString());
             }
             
-            
             //TODO: End of code block 
         }
         catch(Exception e)

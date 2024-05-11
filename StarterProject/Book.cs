@@ -8,18 +8,18 @@ public class Book
     public String Author { get; set; }  
     public String Description { get; set; }
     public int Rank { get; set; }
-    public String AmazonLink { get; set; }
-    public String ImageLink { get; set; }
+    public String AmazonURL { get; set; }
+    public String ImageURL { get; set; }
 
-    public Book(String title, double price, String author, String description, int rank, String amazonLink, String imageLink)
+    public Book(String title, double price, String author, String description, int rank, String amazonURL, String imageURL)
     {
         Title = title;
         Price = price;
         Author = author;
         Description = description;
         Rank = rank;
-        AmazonLink = amazonLink;
-        ImageLink = imageLink;
+        AmazonURL = amazonURL;
+        ImageURL = imageURL;
     }
      
     public String ToString()
