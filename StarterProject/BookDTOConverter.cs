@@ -6,11 +6,13 @@ public class BookDTOConverter
     
     public BookDTO convertBookToBookDTO(Book book)
     {
-        return book;
+        BookDTO bookDTO = _modelMapper.map(book, BookDTO.class);
+        
+        return bookDTO;
     }
-
     public Book convertBookDTOToBook(BookDTO bookDTO)
     {
-        return bookDTO;
+        Book book = _modelMapper.map(bookDTO, Book.class);
+        return book;
     }
 }
