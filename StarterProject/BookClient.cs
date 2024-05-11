@@ -2,7 +2,7 @@
 using StarterProject;
 using StarterProject.Mapper;
 
-public static class Program
+public static class BookClient
 {
     static void Main(string[] args)
     {
