@@ -11,6 +11,13 @@ public class Book
     public String AmazonLink { get; set; }
     public String ImageLink { get; set; }
 
+    
+    // Created this to show you a cool feature of C#
+    public Book()
+    {
+        
+    }
+
     public Book(String title, double price, String author, String description, int rank, String amazonLink, String imageLink)
     {
         Title = title;
