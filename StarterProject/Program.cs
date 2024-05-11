@@ -29,7 +29,7 @@ public static class Program
             Console.WriteLine($@"
                     List Name:         {searchResult.ListName}
                     Display Name:      {searchResult.DisplayName}
-                    Best Seller Date : {searchResult.BestSellersDate}
+                    Best Seller Date:  {searchResult.BestSellersDate}
                     Amount of books:   {searchResult.Books.Count}
                     ----------------------------------------------
             ");
@@ -44,7 +44,6 @@ public static class Program
                     Amazon Link:    {book.AmazonLink}
                 ");
             }
-
 
         }
         catch(Exception e)
