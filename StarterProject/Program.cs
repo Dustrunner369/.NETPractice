@@ -1,12 +1,6 @@
-﻿using System.Linq.Expressions;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using StarterProject;
 using StarterProject.Mapper;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 public static class Program
 {
