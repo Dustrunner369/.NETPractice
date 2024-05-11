@@ -24,9 +24,6 @@ public static class Program
             string message = await repo.Content.ReadAsStringAsync();
             var responseObject = JsonConvert.DeserializeObject<dynamic>(message); // What is the <dynamic> part of this line?
             
-            
-            // BookSearchResult mySearchResult = new BookSearchResult(responseObject.results);
-
             BookSearchResult searchResult = BookSearchResultMapper.MapFromResponseData(responseObject.results);
             
             Console.WriteLine($@"
