@@ -22,7 +22,14 @@ public static class Program
             HttpResponseMessage repo = await client2.GetAsync(apiUrl);
 
             string message = await repo.Content.ReadAsStringAsync();
-            var responseObject = JsonConvert.DeserializeObject<dynamic>(message); // What is the <dynamic> part of this line?
+            
+            // TODO: Mathew Review --- Response To Question 
+            // TODO:    A Dynaimc object is similar to a json object or javascript/python/undefined dynamic object
+            // TODO:        you don't have to know the fields ahead of time and create the contracts like a traditional
+            // TODO:        class. In this case we're accepting a unknown type of object non-predefined fields
+            // TODO:        - It's a useful tool when used correctly, but try not to abuse it and develop hard to read 
+            // TODO:          code 
+            var responseObject = JsonConvert.DeserializeObject<dynamic>(message); 
             
             BookSearchResult searchResult = BookSearchResultMapper.MapFromResponseData(responseObject.results);
             
