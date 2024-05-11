@@ -14,7 +14,7 @@ public class BookSearchResultMapper
         JArray bookDataList = data.books;
         
         // using select to map to different return type
-        List<Book> bookList = bookDataList.Select(b => (Book) BookMapper.MapToBook(b)).ToList();
+        List<Book> bookList = bookDataList.Select(b => BookMapper.MapToBook(b)).ToList();
 
         DateTime bestSellerDate = DateTime.Parse(data.bestsellers_date.ToString());
 
