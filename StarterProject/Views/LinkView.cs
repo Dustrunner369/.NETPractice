@@ -4,6 +4,8 @@ public class LinkView : IView
 {
     public BookSearchResult bookSearchResult { get; set; }
 
+    
+    // TODO: Created additional method to not break existing code.  
     public void Output()
     {
         if (bookSearchResult == null)
