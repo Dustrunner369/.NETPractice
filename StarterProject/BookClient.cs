@@ -46,16 +46,44 @@ public static class BookClient
             //         Amazon Link:    {book.AmazonLink}
             //     ");
             // }
-
-            IView viewInterface = new SingleBookView();
-            viewInterface.Output(searchResult);
             
+            // TODO: DO not call output from here, pass the objects to another method that only knows how to 
+            // TODO:    User an IVIEW
+            IView viewInterface = new SingleBookView()
+            {
+                bookSearchResult = searchResult
+            };
+
+            // can create objects to the lowest reference needed or by their type
+            LinkView linkView = new LinkView()
+            {
+                bookSearchResult = searchResult
+            };
+            
+            // The Point is to view the compatibility of types, that's why were calling a different method
+            // viewInterface.Output(searchResult);
+            
+            // DO you see how they're both compatible. in the definition of the method, use the lowest possible 
+            //  reference in the hierarchy that you need. that means the code is usable for the maximum amount of 
+            //      types.  If the lowest form is the IView, and all you need are the methods you know will exist
+            //      in the IView, then this method is can be used by all types of IView
+            DisplayResults( viewInterface );
+            DisplayResults( linkView );
 
         }
         catch(Exception e)
         {
             Console.WriteLine(e);
         }
+    }
+
+
+    public static void DisplayResults(IView displayView)
+    {
+        // anything can happen here, operations only the IView is known to have 
+        //   but we are simply calling the output method 
+        
+        displayView.Output();
     }
     
     

@@ -3,6 +3,17 @@
 public class LinkView : IView
 {
     public BookSearchResult bookSearchResult { get; set; }
+
+    public void Output()
+    {
+        if (bookSearchResult == null)
+        {
+            Console.Write("Nothing to output");
+            return; 
+        }
+
+        Output( bookSearchResult );
+    }
     public void Output(BookSearchResult data)
     {
         bookSearchResult = data;

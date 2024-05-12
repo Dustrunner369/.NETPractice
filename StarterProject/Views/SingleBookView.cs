@@ -2,7 +2,19 @@
 
 public class SingleBookView : IView
 {
+    // TODO: --- HOrrible C# Naming Conventions, bookSearchResult needs to be capped BookSearchResult
     public BookSearchResult bookSearchResult { get; set; }
+
+    public void Output()
+    {
+        if (bookSearchResult == null)
+        {
+            Console.Write("Nothing to output");
+            return;
+        }
+        
+        Output(bookSearchResult);
+    }
 
     public void Output(BookSearchResult data)
     {
